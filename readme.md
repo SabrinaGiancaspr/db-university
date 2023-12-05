@@ -61,3 +61,13 @@ per ogni esame, stampando anche il voto massimo. Successivamente,
 filtrare i tentativi con voto minimo 18:
 
 SELECT `students`.`id` AS 'students_id', `courses`.`name` AS 'courses_name', COUNT(`exams`.`id`) AS `tentativi`, MAX(`exam_student`.`vote`) AS `voto_massimo` FROM `students` INNER JOIN `exam_student` ON `students`.`id`= `exam_student`.`student_id` INNER JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` INNER JOIN `courses` ON `exams`.`course_id` = `courses`.`id` WHERE `exam_student`.`vote` >= 18 GROUP BY `students`.`id`, `courses`.`id`;
+
+<!-- group by  --> 
+
+1. Contare quanti iscritti ci sono stati ogni anno
+SELECT YEAR(`enrolment_date`) AS `anno_iscrizione`, COUNT(*) AS `iscritti_per_anno` FROM `students` GROUP BY YEAR(`enrolment_date`);
+
+2. Contare gli insegnanti che hanno l'ufficio nello stesso edificio
+SELECT `teachers`.`office_address`, COUNT(*) AS `stesso_ufficio` FROM `teachers` GROUP BY `teachers`.`office_address`;
+
+3. Calcolare la media dei voti di ogni appello d'esame
