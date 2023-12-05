@@ -53,9 +53,11 @@ SELECT * FROM `degrees` INNER JOIN `courses` ON `degrees`.`id` = `courses`.`degr
 
 6. Selezionare tutti i docenti che insegnano nel Dipartimento di
 Matematica (54):
+
 SELECT DISTINCT `teachers`.*, `departments`.`name` AS 'departments_name' FROM `teachers` INNER JOIN `course_teacher` ON `teachers`.`id` = `course_teacher`.`teacher_id` INNER JOIN `courses` ON `course_teacher`.`course_id` = `courses`.`id` INNER JOIN `degrees` ON `courses`.`degree_id` = `degrees`.`id` INNER JOIN `departments` ON `degrees`.`department_id` = `departments`.`id` WHERE `departments`.`name` = 'Dipartimento di Matematica';
 
 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti
 per ogni esame, stampando anche il voto massimo. Successivamente,
-filtrare i tentativi con voto minimo 18.
+filtrare i tentativi con voto minimo 18:
 
+SELECT `students`.`id` AS 'students_id', `courses`.`name` AS 'courses_name', COUNT(`exams`.`id`) AS `tentativi`, MAX(`exam_student`.`vote`) AS `voto_massimo` FROM `students` INNER JOIN `exam_student` ON `students`.`id`= `exam_student`.`student_id` INNER JOIN `exams` ON `exam_student`.`exam_id` = `exams`.`id` INNER JOIN `courses` ON `exams`.`course_id` = `courses`.`id` WHERE `exam_student`.`vote` >= 18 GROUP BY `students`.`id`, `courses`.`id`;
